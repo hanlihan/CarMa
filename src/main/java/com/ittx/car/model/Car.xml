@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ittx.car.dao.CarDao">
+     <resultMap type="com.ittx.car.model.Car" id="CarResult">
+      <id property="uid" column="uid" jdbcType="INTEGER"/>
+      <result property="name" column="name" jdbcType="VARCHAR"/>
+      <result property="model" column="model" jdbcType="VARCHAR"/>
+      <result property="carnumber" column="carnumber" jdbcType="VARCHAR"/>
+      <result property="number" column="number" jdbcType="VARCHAR"/>
+     </resultMap>
+     <insert id="addCar" parameterType="com.ittx.car.model.Car">
+        insert into car(name,model,carnumber,number) values(#{name},#{model},#{carnumber},#{number})
+     </insert>
+     <select id="getAllStudent" resultMap="CarResult">
+         select * from car
+     </select>
+     <update id="updateCars" parameterType="com.ittx.car.model.Car">
+       update car set name=#{name},model=#{model},carnumber=#{carnumber},
+       number=#{number} where uid=#{uid}
+     </update>
+     <delete id="deleteCar" parameterType="int"> 
+        delete  from car where uid=#{uid}
+     </delete>
+     <select id="isExistCarByID"  resultMap="CarResult" >
+         select * from  car where uid=#{uid}
+     </select>
+     <select id="isExistCarNumber" resultMap="CarResult" parameterType="String">
+         select * from  car where number=#{number}
+     </select>
+     <select id="isExistCarModel" resultMap="CarResult" parameterType="String">
+         select * from  car where model=#{model}
+     </select>
+     <select id="isExistCarCarnumber" resultMap="CarResult" parameterType="String">
+         select * from  car where carnumber=#{carnumber}
+     </select>
+</mapper>
